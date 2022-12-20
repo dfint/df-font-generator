@@ -138,10 +138,10 @@ class CursesGenerator:
         )
 
     def patch_missing_chars(self, charset: str, missing: list[int]) -> str:
-        etalon = list("".join(CP437_CHARMAP))
+        sample = list("".join(CP437_CHARMAP))
         charset_list = list(charset)
         for item in missing:
-            charset_list[item] = etalon[item]
+            charset_list[item] = sample[item]
         return "".join(charset_list)
 
     def clear_canvas(self) -> None:

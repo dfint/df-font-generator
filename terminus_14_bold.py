@@ -3,6 +3,7 @@ from pathlib import Path
 from curses_generator import CursesGenerator, CP1251_CHARMAP
 
 
+# Load original one in this scenario
 cg = CursesGenerator(source=Path("./original.png"))
 cg.set_font(
     Path("./Terminess (TTF) Bold Nerd Font Complete Mono Windows Compatible.ttf"), 14
@@ -56,7 +57,6 @@ cg.draw_char("⌂", False)
 cg.set_padding((0, 0))
 cg.set_position((14, 5))
 cg.draw_char("^")
-
 
 # Saving the image to the file system.
 cg.save(Path("./curses_640x300.png"))

@@ -86,7 +86,6 @@ class CursesGenerator:
             self.canvas = canvas
             self.image = Image.new("P", self.canvas, self.background_color)
         self.draw = ImageDraw.Draw(self.image)
-        print(self.image)
 
     def save(self, path: Path) -> None:
         self.image.save(path)

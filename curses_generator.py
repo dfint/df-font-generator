@@ -128,7 +128,7 @@ class CursesGenerator:
         self, encoding: str = "cp1251", rng: tuple[int, int] = (128, 256)
     ) -> str:
         missing_chars: list[int] = list()
-        charset_bytes = bytes(range(rng[0], rng[1]))
+        charset_bytes = bytes(range(*rng))
         try:
             charset_bytes.decode(encoding, errors="strict")
         except ValueError as e:

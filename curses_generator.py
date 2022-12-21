@@ -1,8 +1,8 @@
-from PIL import Image, ImageDraw, ImageFont
-from typing import Optional, TypeAlias
 from enum import Enum
 from pathlib import Path
+from typing import Optional, TypeAlias
 
+from PIL import Image, ImageDraw, ImageFont
 
 CP1251_CHARMAP = [
     " ☺☻♥♦♣♠●◘○◙♂♀♪♫☼",
@@ -96,12 +96,6 @@ class CursesGenerator:
     def set_padding(self, padding: Coordinate) -> None:
         self.padding = padding
 
-    def __coordx(self, value: int) -> float:
-        return value * self.box_size[0]
-
-    def __coordy(self, value: int) -> float:
-        return value * self.box_size[1]
-
     def __coords(self, position: Position) -> Coordinate:
         return (position[0] * self.box_size[0], position[1] * self.box_size[1])
 
@@ -115,7 +109,7 @@ class CursesGenerator:
 
     def next_position(self) -> None:
         self.__increment_position(Axis.X)
-        if self.__coordx(self.position[0]) >= self.canvas[0]:
+        if self.__coords(self.position)[0] >= self.canvas[0]:
             self.position = (0, self.position[1] + 1)
 
     def set_position(self, position: Position) -> None:
@@ -124,18 +118,14 @@ class CursesGenerator:
             raise Exception("Position points out of canvas")
         self.position = position
 
-    def get_charset(
-        self, encoding: str = "cp1251", rng: tuple[int, int] = (128, 256)
-    ) -> str:
+    def get_charset(self, encoding: str = "cp1251", rng: tuple[int, int] = (128, 256)) -> str:
         missing_chars: list[int] = list()
         charset_bytes = bytes(range(*rng))
         try:
             charset_bytes.decode(encoding, errors="strict")
         except ValueError as e:
             missing_chars.append(e.args[2])
-        return self.patch_missing_chars(
-            charset_bytes.decode(encoding, errors="replace"), missing_chars
-        )
+        return self.patch_missing_chars(charset_bytes.decode(encoding, errors="replace"), missing_chars)
 
     def patch_missing_chars(self, charset: str, missing: list[int]) -> str:
         sample = list("".join(CP437_CHARMAP))
@@ -143,6 +133,13 @@ class CursesGenerator:
         for item in missing:
             charset_list[item] = sample[item]
         return "".join(charset_list)
+
+    def patch_unknown_chars(self) -> None:
+        self.set_position((0, 0))
+        self.draw_sequence(CP437_CHARMAP[0])
+        self.draw_sequence(CP437_CHARMAP[1])
+        self.set_position((15, 7))
+        self.draw_sequence(CP437_CHARMAP[7][15])
 
     def clear_canvas(self) -> None:
         self.draw.rectangle(
@@ -153,14 +150,12 @@ class CursesGenerator:
         )
 
     def draw_char(self, char: str, fill_box: bool = True) -> None:
-        assert isinstance(
-            self.font, ImageFont.FreeTypeFont
-        ), "Set font before printing chars"
-        if self.__coordy(self.position[1]) >= self.canvas[1]:
-            raise Exception("To many raws for this canvas size")
+        assert isinstance(self.font, ImageFont.FreeTypeFont), "Set font before printing chars"
+        coords = self.__coords(self.position)
+        if coords[0] >= self.canvas[0] or coords[1] >= self.canvas[1]:
+            raise Exception("Position out of canvas")
         if len(char) > 1:
             raise Exception("Pass single char instead of string")
-        coords = self.__coords(self.position)
         if fill_box:
             self.draw.rectangle(
                 xy=(

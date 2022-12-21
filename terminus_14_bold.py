@@ -1,13 +1,10 @@
 from pathlib import Path
 
-from curses_generator import CursesGenerator, CP1251_CHARMAP
-
+from curses_generator import CP1251_CHARMAP, CursesGenerator
 
 # Load original one in this scenario
 cg = CursesGenerator(source=Path("./original.png"))
-cg.set_font(
-    Path("./Terminess (TTF) Bold Nerd Font Complete Mono Windows Compatible.ttf"), 14
-)
+cg.set_font(Path("./Terminess (TTF) Bold Nerd Font Complete Mono Windows Compatible.ttf"), 14)
 
 # clear all canvas mode
 cg.clear_canvas()

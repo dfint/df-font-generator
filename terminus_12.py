@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from curses_generator import CursesGenerator, CP1251_CHARMAP
-
+from curses_generator import CP1251_CHARMAP, CursesGenerator
 
 cg = CursesGenerator()
 cg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 12)

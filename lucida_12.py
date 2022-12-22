@@ -1,23 +1,17 @@
 from pathlib import Path
 
-from curses_generator import CursesGenerator, CP1251_CHARMAP
-
+from curses_generator import CursesGenerator
 
 cg = CursesGenerator()
 cg.set_font(Path("./lucon.ttf"), 12)
 
-for line in CP1251_CHARMAP:
-    cg.draw_sequence(line)
+# Use generated charset sequence
+charset = cg.get_charset("cp1251")
+cg.draw_sequence(charset)
 
-"""
-Patch needed, cause some glyphs missing
-"""
 # Lucida Patch missing glyphs
 cg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 12)
-cg.set_position((0, 1))
-cg.draw_sequence("▶◀")
-cg.set_position((10, 10))
-cg.draw_sequence("Ɛ")
+cg.patch_unknown_chars()
 
 # Saving the image to the file system.
 cg.save(Path("./curses_640x300.png"))

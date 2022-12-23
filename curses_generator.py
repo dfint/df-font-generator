@@ -193,6 +193,11 @@ class CursesGenerator:
             anchor="mm",
         )
 
+    def draw_point(self, x: int, y: int) -> None:
+        if x >= self.canvas.width or y >= self.canvas.height:
+            raise Exception("Coordinates out of canvas")
+        self.draw.point(xy=(x, y), fill=self.background_color)
+
     def draw_sequence(self, text: str, fill_box: bool = True) -> None:
         for char in list(text):
             self.draw_char(char, fill_box)

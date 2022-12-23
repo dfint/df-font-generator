@@ -55,5 +55,7 @@ cg.set_padding(0, 0)
 cg.set_position(14, 5)
 cg.draw_char("^")
 
+cg.draw_point(35, 155)
+
 # Saving the image to the file system.
 cg.save(Path("./curses_640x300.png"))

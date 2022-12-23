@@ -2,7 +2,6 @@ from pathlib import Path
 
 from curses_generator import CP1251_CHARMAP, CursesGenerator
 
-# cg = CursesGenerator(canvas=(512, 768), box_size=(32, 48))
 cg = CursesGenerator()
 cg.set_padding(0, -1)
 cg.set_font(Path("./Ubuntu Mono Nerd Font Complete Mono Windows Compatible.ttf"), 14)
@@ -15,9 +14,9 @@ cg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 14)
 cg.patch_unknown_chars()
 
 cg.set_position(14, 9)
-cg.draw_char(CP1251_CHARMAP[9][14])
+cg.draw_char("₧")
 cg.set_position(9, 10)
-cg.draw_char(CP1251_CHARMAP[10][9])
+cg.draw_char("⌐")
 
 
 cg.set_padding(0, -1)

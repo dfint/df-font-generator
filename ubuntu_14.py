@@ -1,35 +1,35 @@
 from pathlib import Path
 
-from curses_generator import CP1251_CHARMAP, CursesGenerator
+from font_generator import CP1251_CHARMAP, FontGenerator
 
-cg = CursesGenerator()
-cg.set_padding(0, -1)
-cg.set_font(Path("./Ubuntu Mono Nerd Font Complete Mono Windows Compatible.ttf"), 14)
+fg = FontGenerator()
+fg.set_padding(0, -1)
+fg.set_font(Path("./fonts/ubuntu_mono.ttf"), 14)
 
 for line in CP1251_CHARMAP:
-    cg.draw_sequence(line)
+    fg.draw_sequence(line)
 
-cg.set_padding(0, 0)
-cg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 14)
-cg.patch_unknown_chars()
+fg.set_padding(0, 0)
+fg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 14)
+fg.patch_unknown_chars()
 
-cg.set_position(14, 9)
-cg.draw_char("₧")
-cg.set_position(9, 10)
-cg.draw_char("⌐")
+fg.set_position(14, 9)
+fg.draw_char("₧")
+fg.set_position(9, 10)
+fg.draw_char("⌐")
 
 
-cg.set_padding(0, -1)
-cg.set_font(Path("./Ubuntu Mono Nerd Font Complete Mono Windows Compatible.ttf"), 14)
-cg.set_position(15, 6)
-cg.draw_char("o")
-cg.set_position(14, 8)
-cg.draw_char("Ä")
-cg.set_position(15, 8)
-cg.draw_char("Ă")
-cg.set_position(9, 9)
-cg.draw_char("O")
+fg.set_padding(0, -1)
+fg.set_font(Path("./Ubuntu Mono Nerd Font Complete Mono Windows Compatible.ttf"), 14)
+fg.set_position(15, 6)
+fg.draw_char("o")
+fg.set_position(14, 8)
+fg.draw_char("Ä")
+fg.set_position(15, 8)
+fg.draw_char("Ă")
+fg.set_position(9, 9)
+fg.draw_char("O")
 
 
 # Saving the image to the file system.
-cg.save(Path("./curses_640x300.png"))
+fg.save(Path("./curses_640x300.png"))

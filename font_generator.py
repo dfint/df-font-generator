@@ -70,7 +70,7 @@ class Axis(Enum):
     XY = 3
 
 
-class CursesGenerator:
+class FontGenerator:
     canvas: Size
     box_size: Size
     font_color: Color

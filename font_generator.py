@@ -140,7 +140,19 @@ class FontGenerator:
             charset_bytes.decode(encoding, errors="strict")
         except ValueError as e:
             missing_chars.append(e.args[2])
-        return self.patch_missing_chars(charset_bytes.decode(encoding, errors="replace"), missing_chars)
+        charset = self.patch_missing_chars(charset_bytes.decode(encoding, errors="replace"), missing_chars)
+        sample = list("".join(CP437_CHARMAP))
+        charset_list = list(charset)
+        for index, char in enumerate(charset):
+            if (
+                repr(char).startswith("'\\x")
+                or repr(char) == "'\\t'"
+                or repr(char) == "'\\n'"
+                or repr(char) == "'\\r'"
+                or repr(char) == "'�'"
+            ):
+                charset_list[index] = sample[index]
+        return "".join(charset_list)
 
     def patch_missing_chars(self, charset: str, missing: list[int]) -> str:
         sample = list("".join(CP437_CHARMAP))

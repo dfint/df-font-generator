@@ -141,6 +141,9 @@ class FontGenerator:
         except ValueError as e:
             missing_chars.append(e.args[2])
         charset = self.patch_missing_chars(charset_bytes.decode(encoding, errors="replace"), missing_chars)
+        return self.patch_unprintable_chars(charset)
+
+    def patch_unprintable_chars(self, charset: str) -> str:
         sample = list("".join(CP437_CHARMAP))
         charset_list = list(charset)
         for index, char in enumerate(charset):

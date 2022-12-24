@@ -140,22 +140,22 @@ class FontGenerator:
             charset_bytes.decode(encoding, errors="strict")
         except ValueError as e:
             missing_chars.append(e.args[2])
-        charset = self.patch_missing_chars(charset_bytes.decode(encoding, errors="replace"), missing_chars)
-        return self.patch_unprintable_chars(charset)
+        charset = charset_bytes.decode(encoding, errors="replace")
+        charset = self.patch_missing_chars(charset, missing_chars)
+        charset = self.patch_unprintable_chars(charset)
+        return charset
 
     def patch_unprintable_chars(self, charset: str) -> str:
-        sample = list("".join(CP437_CHARMAP))
         charset_list = list(charset)
         for index, char in enumerate(charset):
             if repr(char).startswith("'\\x") or repr(char) in ["'\\t'", "'\\n'", "'\\r'", "'�'"]:
-                charset_list[index] = sample[index]
+                charset_list[index] = self.char_from_sample(index)
         return "".join(charset_list)
 
     def patch_missing_chars(self, charset: str, missing: list[int]) -> str:
-        sample = list("".join(CP437_CHARMAP))
         charset_list = list(charset)
         for item in missing:
-            charset_list[item] = sample[item]
+            charset_list[item] = self.char_from_sample(item)
         return "".join(charset_list)
 
     def patch_unknown_chars(self) -> None:
@@ -164,6 +164,9 @@ class FontGenerator:
         self.draw_sequence(CP437_CHARMAP[1])
         self.set_position(15, 7)
         self.draw_sequence(CP437_CHARMAP[7][15])
+
+    def char_from_sample(self, index: int) -> str:
+        return list("".join(CP437_CHARMAP))[index]
 
     def clear_canvas(self) -> None:
         self.draw.rectangle(

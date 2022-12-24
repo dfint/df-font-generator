@@ -144,13 +144,7 @@ class FontGenerator:
         sample = list("".join(CP437_CHARMAP))
         charset_list = list(charset)
         for index, char in enumerate(charset):
-            if (
-                repr(char).startswith("'\\x")
-                or repr(char) == "'\\t'"
-                or repr(char) == "'\\n'"
-                or repr(char) == "'\\r'"
-                or repr(char) == "'�'"
-            ):
+            if repr(char).startswith("'\\x") or repr(char) in ["'\\t'", "'\\n'", "'\\r'", "'�'"]:
                 charset_list[index] = sample[index]
         return "".join(charset_list)
 

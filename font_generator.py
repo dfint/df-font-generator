@@ -134,14 +134,8 @@ class FontGenerator:
         self.position = Position(x, y)
 
     def get_charset(self, encoding: str = "cp1251", rng: tuple[int, int] = (0, 256)) -> str:
-        missing_chars: list[int] = list()
         charset_bytes = bytes(range(*rng))
-        try:
-            charset_bytes.decode(encoding, errors="strict")
-        except ValueError as e:
-            missing_chars.append(e.args[2])
         charset = charset_bytes.decode(encoding, errors="replace")
-        charset = self.patch_missing_chars(charset, missing_chars)
         charset = self.patch_unprintable_chars(charset)
         return charset
 
@@ -150,12 +144,6 @@ class FontGenerator:
         for index, char in enumerate(charset):
             if repr(char).startswith("'\\x") or repr(char) in ["'\\t'", "'\\n'", "'\\r'", "'�'"]:
                 charset_list[index] = self.char_from_sample(index)
-        return "".join(charset_list)
-
-    def patch_missing_chars(self, charset: str, missing: list[int]) -> str:
-        charset_list = list(charset)
-        for item in missing:
-            charset_list[item] = self.char_from_sample(item)
         return "".join(charset_list)
 
     def patch_unknown_chars(self) -> None:

@@ -1,1 +1,1 @@
-# Dwarf Fortress Curses Generator
+# Dwarf Fortress Font Generator

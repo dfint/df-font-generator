@@ -10,7 +10,7 @@ for line in CP1251_CHARMAP:
     fg.draw_sequence(line)
 
 fg.set_padding(0, 0)
-fg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 14)
+# fg.set_font(Path("./Terminess (TTF) Nerd Font Complete Mono.ttf"), 14)
 fg.patch_unknown_chars()
 
 fg.set_position(14, 9)
@@ -20,7 +20,7 @@ fg.draw_char("⌐")
 
 
 fg.set_padding(0, -1)
-fg.set_font(Path("./Ubuntu Mono Nerd Font Complete Mono Windows Compatible.ttf"), 14)
+# fg.set_font(Path("./Ubuntu Mono Nerd Font Complete Mono Windows Compatible.ttf"), 14)
 fg.set_position(15, 6)
 fg.draw_char("o")
 fg.set_position(14, 8)

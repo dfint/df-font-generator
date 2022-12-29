@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from font_generator import CP1251_CHARMAP, FontGenerator
+from df_font_generator.font_generator import CP1251_CHARMAP, FontGenerator
 
 # Load original one in this scenario
 fg = FontGenerator(source=Path("./original.png"))

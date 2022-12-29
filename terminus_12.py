@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from font_generator import CP1251_CHARMAP, FontGenerator
+from df_font_generator.font_generator import CP1251_CHARMAP, FontGenerator
 
 fg = FontGenerator()
 fg.set_font(Path("./fonts/terminus.ttf"), 12)

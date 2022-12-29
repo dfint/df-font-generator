@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "df-font-generator"
+version = "0.1.0"
+description = ""
+authors = ["sheverniskiy <mahahuha@ya.ru>", "insolor <insolor@gmail.com>"]
+readme = "README.md"
+packages = [{include = "df_font_generator"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pillow = "^9.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

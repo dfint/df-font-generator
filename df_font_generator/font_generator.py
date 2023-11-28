@@ -1,3 +1,4 @@
+import math
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple, Optional
@@ -99,7 +100,7 @@ class FontGenerator:
             self.canvas = Size(*self.image.size)
         else:
             self.canvas = canvas
-            self.image = Image.new("P", self.canvas, self.background_color)
+            self.image = Image.new("RGB", self.canvas, self.background_color)
         self.draw = ImageDraw.Draw(self.image)
 
     def save(self, path: Path) -> None:
@@ -158,7 +159,7 @@ class FontGenerator:
 
     def clear_canvas(self) -> None:
         self.draw.rectangle(
-            xy=(0, 0, *self.canvas),
+            xy=(0, 0, self.canvas.width, self.canvas.height),
             fill=self.background_color,
             width=0,
             outline=None,
@@ -171,27 +172,27 @@ class FontGenerator:
             raise Exception("Position out of canvas")
         if len(char) > 1:
             raise Exception("Pass single char instead of string")
+        box = Image.new("P", self.box_size, self.background_color)
+        draw = ImageDraw.Draw(box)
         if fill_box:
-            self.draw.rectangle(
-                xy=(
-                    coords,
-                    (coords.x + self.box_size.width, coords.y + self.box_size.height),
-                ),
+            draw.rectangle(
+                xy=(0, 0, self.box_size.width, self.box_size.height),
                 fill=self.background_color,
                 width=0,
                 outline=None,
             )
-        self.draw.multiline_text(
+        draw.multiline_text(
             xy=(
-                coords.x + self.box_size.width / 2 + self.padding.x,
-                coords.y + self.box_size.height / 2 + self.padding.y,
+                self.box_size.width / 2 + self.padding.x,
+                self.box_size.height / 2 + self.padding.y,
             ),
             text=char,
             font=self.font,
-            fill=self.font_color,
+            fill=(255, 255, 255),
             align="center",
             anchor="mm",
         )
+        self.image.paste(box, (math.floor(coords.x), math.floor(coords.y)))
 
     def draw_point(self, x: int, y: int) -> None:
         if x >= self.canvas.width or y >= self.canvas.height:

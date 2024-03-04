@@ -81,6 +81,7 @@ class FontGenerator:
     font: ImageFont.FreeTypeFont
     position: Position
     padding: Coordinate
+    charset: str
 
     def __init__(
         self,
@@ -140,6 +141,9 @@ class FontGenerator:
         charset = self.patch_unprintable_chars(charset)
         return charset
 
+    def set_charset(self, encoding: str = "cp1251", rng: tuple[int, int] = (0, 256)) -> None:
+        self.charset = self.get_charset(encoding)
+
     def patch_unprintable_chars(self, charset: str) -> str:
         charset_list = list(charset)
         for index, char in enumerate(charset):
@@ -164,6 +168,16 @@ class FontGenerator:
             width=0,
             outline=None,
         )
+
+    def draw_char_at_position(self, char: str, position: int) -> None:
+        self.set_position(position % 16, math.floor(position / 16))
+        self.draw_char(char)
+        self.next_position()
+
+    def draw_from_charset(self, position: int) -> None:
+        if not self.charset:
+            raise Exception("Set charset before drawing")
+        self.draw_char_at_position(self.charset[position], position)
 
     def draw_char(self, char: str, fill_box: bool = True) -> None:
         assert isinstance(self.font, ImageFont.FreeTypeFont), "Set font before printing chars"

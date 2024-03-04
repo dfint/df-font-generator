@@ -9,7 +9,17 @@ packages = [{include = "df_font_generator"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 pillow = "^10.2.0"
+alternative-encodings = {version = "^0.2.0", source = "dfint"}
 
+[[tool.poetry.source]]
+name = "dfint"
+url = "https://dfint.github.io/pypi-index/"
+priority = "explicit"
+
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+black = "^24.2.0"
 
 [build-system]
 requires = ["poetry-core"]

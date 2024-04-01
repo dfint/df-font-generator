@@ -9,7 +9,7 @@ packages = [{include = "df_font_generator"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 pillow = "^10.3.0"
-alternative-encodings = {version = "^0.2.0", source = "dfint"}
+alternative-encodings = {version = "^0.2.2", source = "dfint"}
 
 [[tool.poetry.source]]
 name = "dfint"

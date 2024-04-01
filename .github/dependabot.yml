@@ -4,8 +4,22 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "pytest*"
+          - "flake8*"
+          - "black"
+          - "isort"
+          - "coverage"
+          - "refurb"
+          - "ruff"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      github-pages:
+        patterns:
+          - "*"

@@ -17,7 +17,7 @@ url = "https://dfint.github.io/pypi-index/"
 priority = "explicit"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.9.9"
+ruff = "^0.11.2"
 
 [build-system]
 requires = ["poetry-core"]

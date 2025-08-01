@@ -1,24 +1,27 @@
-[tool.poetry]
+[project]
 name = "df-font-generator"
 version = "0.1.0"
 description = ""
-authors = ["sheverniskiy <mahahuha@ya.ru>", "insolor <insolor@gmail.com>"]
+authors = [
+    { name = "sheverniskiy", email = "mahahuha@ya.ru" },
+    { name = "insolor", email = "insolor@gmail.com" },
+]
+requires-python = ">=3.10"
 readme = "README.md"
-packages = [{include = "df_font_generator"}]
+dependencies = [
+    "pillow>=11.3.0,<12",
+    "alternative-encodings>=0.3.1,<0.4",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-pillow = "^11.3.0"
-alternative-encodings = {version = "^0.3.1", source = "dfint"}
+[dependency-groups]
+dev = ["ruff>=0.12.7,<0.13"]
 
-[[tool.poetry.source]]
+[tool.uv]
+
+[[tool.uv.index]]
 name = "dfint"
 url = "https://dfint.github.io/pypi-index/"
-priority = "explicit"
+explicit = true
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.12.7"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv.sources]
+alternative-encodings = { index = "dfint" }

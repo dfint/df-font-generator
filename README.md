@@ -3,7 +3,7 @@
 Running examples:
 
 ```bash
-poetry run python terminus_12.py
-poetry run python terminus_14_bold.py
-poetry run python ubuntu_14.py
+uv run terminus_12.py
+uv run terminus_14_bold.py
+uv run ubuntu_14.py
 ```

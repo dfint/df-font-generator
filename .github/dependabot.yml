@@ -16,6 +16,6 @@ updates:
     schedule:
       interval: "monthly"
     groups:
-      github-pages:
+      github-actions:
         patterns:
           - "*"

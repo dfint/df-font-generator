@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from df_font_generator.font_generator import CP1251_CHARMAP, FontGenerator
+from df_font_generator.font_generator import FontGenerator
 
 # Load original one in this scenario
 # fg = FontGenerator(source=Path("./original.png"))
@@ -11,12 +11,29 @@ fg.set_font(Path("./fonts/terminus_bold.ttf"), 14)
 fg.clear_canvas()
 fg.set_padding(0, -1)
 
+CP1251_CHARMAP = [
+    " ☺☻♥♦♣♠●◘○◙♂♀♪♫☼",
+    "▶◀↕‼¶§▬↨↑↓→←∟↔▲▼",
+    " !\"#$%&'()*+,-./",
+    "0123456789:;<=>?",
+    "@ABCDEFGHIJKLMNO",
+    "PQRSTUVWXYZ[\\]^_",
+    "`abcdefghijklmno",
+    "pqrstuvwxyz{|}~⌂",
+    "ÇüéâäàăçêëèïîìÄĂ",
+    "ÉæÆôöòûùÿOU¢£¥₧ƒ",
+    "áЎўúñҐªºË⌐Є½¼¡«Ï",
+    "░▒Iiґ╡╢╖ë╣є╗╝╜╛ï",
+    "АБВГДЕЖЗИЙКЛМНОП",
+    "РСТУФХЦЧШЩЪЫЬЭЮЯ",
+    "абвгдежзийклмноп",
+    "рстуфхцчшщъыьэюя",
+]
+
 for line in CP1251_CHARMAP:
     fg.draw_sequence(line, False)
 
-"""
-Patch needed, cause some chars out of they boxes
-"""
+# Patch needed, cause some chars out of they boxes
 # Terminus 14 patch
 fg.set_position(0, 5)
 fg.draw_char(" ")
@@ -59,4 +76,4 @@ fg.draw_char("^")
 fg.draw_point(35, 155)
 
 # Saving the image to the file system.
-fg.save(Path("./curses_640x300.png"))
+fg.save(Path("./cp1251.png"))

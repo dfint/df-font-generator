@@ -3,31 +3,7 @@ from enum import Enum
 from pathlib import Path
 from typing import NamedTuple, Optional
 
-from alternative_encodings import cp859, cp866i, viscii
 from PIL import Image, ImageDraw, ImageFont
-
-cp859.register()
-cp866i.register()
-viscii.register()
-
-CP1251_CHARMAP = [
-    " ☺☻♥♦♣♠●◘○◙♂♀♪♫☼",
-    "▶◀↕‼¶§▬↨↑↓→←∟↔▲▼",
-    " !\"#$%&'()*+,-./",
-    "0123456789:;<=>?",
-    "@ABCDEFGHIJKLMNO",
-    "PQRSTUVWXYZ[\\]^_",
-    "`abcdefghijklmno",
-    "pqrstuvwxyz{|}~⌂",
-    "ÇüéâäàăçêëèïîìÄĂ",
-    "ÉæÆôöòûùÿOU¢£¥₧ƒ",
-    "áЎўúñҐªºË⌐Є½¼¡«Ï",
-    "░▒Iiґ╡╢╖ë╣є╗╝╜╛ï",
-    "АБВГДЕЖЗИЙКЛМНОП",
-    "РСТУФХЦЧШЩЪЫЬЭЮЯ",
-    "абвгдежзийклмноп",
-    "рстуфхцчшщъыьэюя",
-]
 
 CP437_CHARMAP = [
     " ☺☻♥♦♣♠●◘○◙♂♀♪♫☼",
@@ -142,17 +118,13 @@ class FontGenerator:
             raise Exception("Position points out of canvas")
         self.position = Position(x, y)
 
-    def get_charset(
-        self, encoding: str = "cp1251", rng: tuple[int, int] = (0, 256)
-    ) -> str:
+    def get_charset(self, encoding: str, rng: tuple[int, int] = (0, 256)) -> str:
         charset_bytes = bytes(range(*rng))
         charset = charset_bytes.decode(encoding, errors="replace")
         charset = self.patch_unprintable_chars(charset)
         return charset
 
-    def set_charset(
-        self, encoding: str = "cp1251", rng: tuple[int, int] = (0, 256)
-    ) -> None:
+    def set_charset(self, encoding: str, rng: tuple[int, int] = (0, 256)) -> None:
         self.charset = self.get_charset(encoding)
 
     def patch_unprintable_chars(self, charset: str) -> str:
@@ -196,9 +168,9 @@ class FontGenerator:
         self.draw_char_at_position(self.charset[position], position)
 
     def draw_char(self, char: str, fill_box: bool = True) -> None:
-        assert isinstance(
-            self.font, ImageFont.FreeTypeFont
-        ), "Set font before printing chars"
+        assert isinstance(self.font, ImageFont.FreeTypeFont), (
+            "Set font before printing chars"
+        )
         coords = self.__coords(self.position)
         if coords.x >= self.canvas.width or coords.y >= self.canvas.height:
             raise Exception("Position out of canvas")

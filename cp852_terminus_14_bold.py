@@ -30,7 +30,7 @@ fg.set_padding(0, 1)
 fg.set_position(0, 6)
 fg.draw_char("`")
 
-for char in [
+chars = [
     0x8A,
     0x8D,
     0x8E,
@@ -71,9 +71,11 @@ for char in [
     0xF9,
     0xFA,
     0xFC,
-]:
+]
+
+for char in chars:
     fg.draw_from_charset(char)
 
 
 # Saving the image to the file system.
-fg.save(Path("./curses_640x300.png"))
+fg.save(Path("./cp852.png"))

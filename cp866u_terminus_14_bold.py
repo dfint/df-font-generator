@@ -24,4 +24,4 @@ fg.set_position(11, 15)
 fg.draw_char("√")
 
 # Saving the image to the file system.
-fg.save(Path("./curses_640x300.png"))
+fg.save(Path("./cp866u.png"))

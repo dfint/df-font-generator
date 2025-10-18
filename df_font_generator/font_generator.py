@@ -1,4 +1,3 @@
-import math
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple, Optional
@@ -36,8 +35,8 @@ class Position(NamedTuple):
 
 
 class Coordinate(NamedTuple):
-    x: float
-    y: float
+    x: int
+    y: int
 
 
 class Color(NamedTuple):
@@ -91,7 +90,7 @@ class FontGenerator:
     def set_font(self, ttf_path: Path, size: int) -> None:
         self.font = ImageFont.truetype(font=str(ttf_path.resolve()), size=size)
 
-    def set_padding(self, x: float = 0, y: float = 0) -> None:
+    def set_padding(self, x: int, y: int) -> None:
         self.padding = Coordinate(x, y)
 
     def __coords(self, position: Position) -> Coordinate:
@@ -158,7 +157,7 @@ class FontGenerator:
         )
 
     def draw_char_at_position(self, char: str, position: int) -> None:
-        self.set_position(position % 16, math.floor(position / 16))
+        self.set_position(position % 16, position // 16)
         self.draw_char(char)
         self.next_position()
 
@@ -187,8 +186,8 @@ class FontGenerator:
             )
         draw.multiline_text(
             xy=(
-                self.box_size.width / 2 + self.padding.x,
-                self.box_size.height / 2 + self.padding.y,
+                self.box_size.width // 2 + self.padding.x,
+                self.box_size.height // 2 + self.padding.y,
             ),
             text=char,
             font=self.font,
@@ -196,7 +195,7 @@ class FontGenerator:
             align="center",
             anchor="mm",
         )
-        self.image.paste(box, (math.floor(coords.x), math.floor(coords.y)))
+        self.image.paste(box, (coords.x, coords.y))
 
     def draw_point(self, x: int, y: int) -> None:
         if x >= self.canvas.width or y >= self.canvas.height:

@@ -2,35 +2,14 @@ from pathlib import Path
 
 from df_font_generator.font_generator import FontGenerator
 
-# Load original one in this scenario
 fg = FontGenerator()
 fg.set_font(Path("./fonts/terminus_bold.ttf"), 14)
+fg.set_charset(encoding="cp1251")
 
 # clear all canvas mode
 fg.clear_canvas()
 fg.set_padding(0, -1)
-
-CP1251_CHARMAP = [
-    " ☺☻♥♦♣♠●◘○◙♂♀♪♫☼",
-    "▶◀↕‼¶§▬↨↑↓→←∟↔▲▼",
-    " !\"#$%&'()*+,-./",
-    "0123456789:;<=>?",
-    "@ABCDEFGHIJKLMNO",
-    "PQRSTUVWXYZ[\\]^_",
-    "`abcdefghijklmno",
-    "pqrstuvwxyz{|}~⌂",
-    "ÇüéâäàăçêëèïîìÄĂ",
-    "ÉæÆôöòûùÿOU¢£¥₧ƒ",
-    "áЎўúñҐªºË⌐Є½¼¡«Ï",
-    "░▒Iiґ╡╢╖ë╣є╗╝╜╛ï",
-    "АБВГДЕЖЗИЙКЛМНОП",
-    "РСТУФХЦЧШЩЪЫЬЭЮЯ",
-    "абвгдежзийклмноп",
-    "рстуфхцчшщъыьэюя",
-]
-
-for line in CP1251_CHARMAP:
-    fg.draw_sequence(line, False)
+fg.draw_full_charset()
 
 # Patch needed, cause some chars out of they boxes
 # Terminus 14 patch

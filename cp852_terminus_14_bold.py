@@ -11,6 +11,8 @@ fg.clear_canvas()
 fg.set_padding(0, -1)
 fg.draw_full_charset()
 
+# Patch needed, cause some chars out of they boxes
+# Terminus 14 patch
 fg.set_padding(0, 0)
 fg.set_position(0, 15)
 fg.draw_char("≡")

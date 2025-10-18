@@ -4,11 +4,12 @@ from df_font_generator.font_generator import FontGenerator
 
 fg = FontGenerator()
 fg.set_font(Path("./fonts/terminus_bold.ttf"), 14)
+fg.set_charset(encoding="cp866")
 
 # clear all canvas mode
 fg.clear_canvas()
 fg.set_padding(0, -1)
-fg.draw_sequence(fg.get_charset(encoding="cp866"))
+fg.draw_full_charset()
 
 fg.set_padding(0, 0)
 fg.set_position(0, 15)

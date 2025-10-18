@@ -3,7 +3,6 @@ from pathlib import Path
 from df_font_generator.font_generator import FontGenerator
 
 # Load original one in this scenario
-# fg = FontGenerator(source=Path("./original.png"))
 fg = FontGenerator()
 fg.set_font(Path("./fonts/terminus_bold.ttf"), 14)
 

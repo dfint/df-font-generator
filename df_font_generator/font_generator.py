@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple, Optional
@@ -161,10 +162,13 @@ class FontGenerator:
         self.draw_char(char)
         self.next_position()
 
-    def draw_from_charset(self, position: int) -> None:
-        if not self.charset:
-            raise Exception("Set charset before drawing")
-        self.draw_char_at_position(self.charset[position], position)
+    def redraw_characters(self, characters: Iterable[str]) -> None:
+        map_positions = {
+            char: index
+            for index, char in enumerate(self.charset)
+        }
+        for char in characters:
+            self.draw_char_at_position(char, map_positions[char])
 
     def draw_char(self, char: str, fill_box: bool = True) -> None:
         assert isinstance(self.font, ImageFont.FreeTypeFont), (
@@ -201,6 +205,9 @@ class FontGenerator:
         if x >= self.canvas.width or y >= self.canvas.height:
             raise Exception("Coordinates out of canvas")
         self.draw.point(xy=(x, y), fill=self.background_color)
+
+    def draw_full_charset(self) -> None:
+        self.draw_sequence(self.charset)
 
     def draw_sequence(self, text: str, fill_box: bool = True) -> None:
         for char in list(text):

@@ -1,10 +1,14 @@
+import codecs
 from collections import defaultdict
 from collections.abc import Iterable
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple, Optional
 
+import alternative_encodings
 from PIL import Image, ImageDraw, ImageFont
+
+alternative_encodings.register_all()
 
 CP437_CHARMAP = [
     " ☺☻♥♦♣♠●◘○◙♂♀♪♫☼",
@@ -121,7 +125,7 @@ class FontGenerator:
 
     def get_charset(self, encoding: str, rng: tuple[int, int] = (0, 256)) -> str:
         charset_bytes = bytes(range(*rng))
-        charset = charset_bytes.decode(encoding, errors="replace")
+        charset = codecs.decode(charset_bytes, encoding, errors="replace")
         charset = self.patch_unprintable_chars(charset)
         return charset
 

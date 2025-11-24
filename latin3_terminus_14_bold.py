@@ -22,7 +22,7 @@ def get_latin3_font() -> Image.Image:
     fg.set_padding(0, -1)
     fg.draw_full_charset()
 
-    # Patch needed, cause some chars out of they boxes
+    # Patch needed, because some chars out of they boxes
     # Terminus 14 patch
     fg.set_padding(0, 0)
     fg.redraw_characters("≡§^~")

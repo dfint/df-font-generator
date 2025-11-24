@@ -1,3 +1,4 @@
+from collections import defaultdict
 from collections.abc import Iterable
 from enum import Enum
 from pathlib import Path
@@ -163,12 +164,14 @@ class FontGenerator:
         self.next_position()
 
     def redraw_characters(self, characters: Iterable[str]) -> None:
-        map_positions = {
-            char: index
-            for index, char in enumerate(self.charset)
-        }
+        map_positions = defaultdict(list)
+        for index, char in enumerate(self.charset):
+            map_positions[char].append(index)
+
         for char in characters:
-            self.draw_char_at_position(char, map_positions[char])
+            positions = map_positions[char]
+            for position in positions:
+                self.draw_char_at_position(char, position)
 
     def draw_char(self, char: str, *, fill_box: bool = True) -> None:
         assert isinstance(self.font, ImageFont.FreeTypeFont), (

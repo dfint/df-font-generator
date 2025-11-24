@@ -61,19 +61,14 @@ def _(image):
 @app.cell
 def _(image):
     # Show resulting image (scaled x2 to see details)
-    img = None
+    preview = None
     if mo.running_in_notebook():
         scale = 2
         width = image.width * scale
         height = image.height * scale
-        img = image.resize((width, height), Image.Resampling.NEAREST)
+        preview = image.resize((width, height), Image.Resampling.NEAREST)
 
-    img
-    return
-
-
-@app.cell
-def _():
+    preview  # type: ignore
     return
 
 

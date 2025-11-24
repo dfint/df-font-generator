@@ -25,22 +25,14 @@ def get_latin3_font() -> Image.Image:
     # Patch needed, cause some chars out of they boxes
     # Terminus 14 patch
     fg.set_padding(0, 0)
-    fg.set_position(0, 15)
-    fg.draw_char("≡")
-    fg.set_position(5, 1)
-    fg.draw_char("§")
-    fg.set_position(5, 15)
-    fg.draw_char("§")
-    fg.set_position(14, 5)
-    fg.draw_char("^")
-    fg.set_position(14, 7)
-    fg.draw_char("~")
+    fg.redraw_characters("≡§^~")
 
+    # Encoding-specific patches
     fg.set_padding(0, 1)
     fg.redraw_characters("`")
 
     fg.set_padding(0, 0)
-    fg.redraw_characters("§°²³")
+    fg.redraw_characters("°²³")
 
     fg.set_padding(0, 1)
     fg.redraw_characters("´Ĥ¨ĞŻĴĥÀÁÂÄĊĈÈÉÊËÌÍÎÏÑÒÓÔĠÖĜÙÚÛÜŬŜ˙")

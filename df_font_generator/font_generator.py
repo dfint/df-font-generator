@@ -170,7 +170,7 @@ class FontGenerator:
         for char in characters:
             self.draw_char_at_position(char, map_positions[char])
 
-    def draw_char(self, char: str, fill_box: bool = True) -> None:
+    def draw_char(self, char: str, *, fill_box: bool = True) -> None:
         assert isinstance(self.font, ImageFont.FreeTypeFont), (
             "Set font before printing chars"
         )
@@ -211,5 +211,5 @@ class FontGenerator:
 
     def draw_sequence(self, text: str, fill_box: bool = True) -> None:
         for char in list(text):
-            self.draw_char(char, fill_box)
+            self.draw_char(char, fill_box=fill_box)
             self.next_position()

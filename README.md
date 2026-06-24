@@ -9,12 +9,15 @@ uv run ubuntu_14.py
 ```
 
 `*_mo.py` files are [marimo](https://marimo.io) notebooks, so you can open them using marimo:
+
 ```bash
-uv run marimo edit latin3_terminus_14_bold_nb.py
+uv run marimo edit latin3_terminus_14_bold_mo.py
 # or
-uvx marimo edit latin3_terminus_14_bold_nb.py
+uvx marimo edit latin3_terminus_14_bold_mo.py
 ```
+
 but they still can be used as command line scripts:
+
 ```bash
-uv run latin3_terminus_14_bold_nb.py
+uv run latin3_terminus_14_bold_mo.py
 ```

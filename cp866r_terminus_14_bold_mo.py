@@ -62,10 +62,11 @@ def create_run_button():
 
 @app.cell(hide_code=True)
 def write_font_file(button, image):
-    if button.value:
-        file = "cp866r.png"
-        image.save(file)
-        print(f"File {file} written")
+    mo.stop(not button.value, mo.md("Press button above to save the font file"))
+
+    file = "cp866r.png"
+    image.save(file)
+    mo.md(f"File {file} has been written")
     return
 
 
